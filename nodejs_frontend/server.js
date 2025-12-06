@@ -364,6 +364,72 @@ app.get('/events', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'events-ios.html'));
 });
 
+/**
+ * POST /api/send-message
+ * Send iMessage via Series API
+ * This integrates with Series iMessage API to send real messages
+ */
+app.post('/api/send-message', async (req, res) => {
+    const { toPhone, message, eventName, recipientName } = req.body;
+    
+    // Validate required fields
+    if (!toPhone || !message) {
+        return res.status(400).json({
+            success: false,
+            error: 'Phone number and message are required'
+        });
+    }
+    
+    // Get sender phone from environment or use default
+    const senderPhone = process.env.SERIES_SENDER_NUMBER || '+16463230991';
+    const apiKey = process.env.SERIES_API_KEY || 'abbba05f-7e23-4b78-a7db-55e9cdc69fea';
+    const apiBaseUrl = process.env.SERIES_API_BASE_URL || 'https://api.series.so';
+    
+    try {
+        // Call Series API to create chat and send message
+        const seriesResponse = await fetch(`${apiBaseUrl}/api/chats`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                send_from: senderPhone,
+                chat: {
+                    phone_numbers: [toPhone],
+                    display_name: eventName ? `Event: ${eventName}` : null
+                },
+                message: {
+                    text: message
+                }
+            })
+        });
+        
+        if (!seriesResponse.ok) {
+            const errorText = await seriesResponse.text();
+            console.error('[SERIES API] Error:', errorText);
+            throw new Error(`Series API error: ${seriesResponse.status}`);
+        }
+        
+        const result = await seriesResponse.json();
+        
+        res.json({
+            success: true,
+            message: 'Message sent successfully',
+            chatId: result.id || result.chat_id,
+            apiResponse: result
+        });
+        
+    } catch (error) {
+        console.error('[SEND MESSAGE] Error:', error);
+        res.status(500).json({
+            success: false,
+            error: error.message || 'Failed to send message',
+            note: 'Make sure SERIES_API_KEY and SERIES_SENDER_NUMBER are set in environment'
+        });
+    }
+});
+
 // --- Server Startup ---
 app.listen(PORT, async () => {
     console.log('\n' + '='.repeat(60));

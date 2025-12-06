@@ -1,0 +1,15 @@
+# Railway deployment configuration
+# Railway uses docker-compose.yml automatically, but this provides additional settings
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile.production"
+
+[deploy]
+startCommand = "docker compose -f docker-compose.production.yml up"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+# Environment variables are set via Railway dashboard or CLI
+# railway variables set KEY=value
+

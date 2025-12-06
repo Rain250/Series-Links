@@ -94,6 +94,9 @@ services:
       KAFKA_TOPIC_INTENT: series_event_intents
       KAFKA_TOPIC_NOTIFY: series_frontend_notify
       PORT: 3000
+      SERIES_API_KEY: ${SERIES_API_KEY:-abbba05f-7e23-4b78-a7db-55e9cdc69fea}
+      SERIES_API_BASE_URL: ${SERIES_API_BASE_URL:-https://api.series.so}
+      SERIES_SENDER_NUMBER: ${SERIES_SENDER_NUMBER:-+16463230991}
     restart: on-failure
 
 

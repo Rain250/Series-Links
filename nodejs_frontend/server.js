@@ -355,13 +355,36 @@ app.get('/api/event/:id', (req, res) => {
 });
 
 // Serve main HTML file
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// ========== ROUTES ==========
+
+// Login page
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-// Serve events page (iOS style)
+// Onboarding
+app.get('/onboarding', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'events-ios.html'));
+});
+
+// Events page
 app.get('/events', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'events-ios.html'));
+});
+
+// Home page
+app.get('/home', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'events-ios.html'));
+});
+
+// About page
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'events-ios.html'));
+});
+
+// Root redirects to login
+app.get('/', (req, res) => {
+    res.redirect('/login');
 });
 
 /**
@@ -431,11 +454,13 @@ app.post('/api/send-message', async (req, res) => {
 });
 
 // --- Server Startup ---
-app.listen(PORT, async () => {
+app.listen(PORT, '0.0.0.0', async () => {
     console.log('\n' + '='.repeat(60));
     console.log('🚀 Series Event Layer - Frontend Server');
     console.log('='.repeat(60));
-    console.log(`   URL: http://localhost:${PORT}`);
+    console.log(`   Local URL: http://localhost:${PORT}`);
+    console.log(`   Network URL: http://192.168.1.235:${PORT}`);
+    console.log(`   Onboarding: http://192.168.1.235:${PORT}/onboarding`);
     console.log(`   Kafka Broker: ${KAFKA_BROKER}`);
     console.log(`   Intent Topic: ${KAFKA_TOPIC_INTENT}`);
     console.log(`   Notify Topic: ${KAFKA_TOPIC_NOTIFY}`);

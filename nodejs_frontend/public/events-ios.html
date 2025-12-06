@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Series</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Series Landing Page Style - Clean & Minimal */
+        :root {
+            --series-black: #000000;
+            --series-white: #FFFFFF;
+            --series-gray-light: #F5F5F5;
+            --series-gray: #8E8E93;
+            --series-gray-dark: #3A3A3C;
+            --series-text: #000000;
+            --series-text-secondary: #3C3C43;
+            --series-text-muted: #8E8E93;
+            --series-bg: #FFFFFF;
+            --series-bg-secondary: #FFFFFF;
+            --series-border: rgba(0, 0, 0, 0.1);
+            --series-blue: #007AFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+            background: var(--series-bg);
+            color: var(--series-text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar - Series Style */
+        .nav-bar {
+            background: var(--series-bg);
+            border-bottom: 1px solid var(--series-border);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .nav-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--series-text);
+            letter-spacing: -0.3px;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            color: var(--series-text);
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 12px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: opacity 0.2s;
+        }
+
+        .nav-button:hover {
+            opacity: 0.7;
+        }
+
+        /* Container - Series Style */
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: var(--series-bg);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* Card Style - Series Minimal */
+        .ios-card {
+            background: var(--series-bg);
+            border-radius: 0;
+            overflow: visible;
+            border: 1px solid var(--series-border);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: none;
+        }
+
+        .ios-card-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--series-border);
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .ios-card-body {
+            padding: 16px;
+        }
+
+        /* Form Inputs - Series Style */
+        .ios-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--series-bg);
+            border: 1px solid var(--series-border);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            color: var(--series-text);
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .ios-input:focus {
+            outline: none;
+            border-color: var(--series-black);
+        }
+
+        .ios-input::placeholder {
+            color: var(--series-text-muted);
+        }
+
+        textarea.ios-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .ios-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--series-text);
+            margin-bottom: 8px;
+            text-transform: none;
+            letter-spacing: -0.2px;
+        }
+
+        /* Button - Series Style (Black Button) */
+        .ios-button {
+            background: var(--series-black);
+            color: var(--series-white);
+            border: none;
+            border-radius: 8px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+            transition: opacity 0.2s, transform 0.1s;
+            letter-spacing: -0.2px;
+        }
+
+        .ios-button:hover {
+            opacity: 0.9;
+        }
+
+        .ios-button:active {
+            transform: scale(0.98);
+        }
+
+        .ios-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .ios-button-secondary {
+            background: var(--series-white);
+            color: var(--series-text);
+            border: 1px solid var(--series-border);
+        }
+
+        .ios-button-secondary:hover {
+            background: var(--series-gray-light);
+        }
+
+        /* Onboarding - Series Style */
+        .onboarding-screen {
+            padding: 48px 24px;
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--series-bg);
+        }
+
+        .onboarding-header {
+            margin-bottom: 48px;
+            text-align: left;
+        }
+
+        .onboarding-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--series-text);
+            margin-bottom: 16px;
+            letter-spacing: -0.8px;
+            line-height: 1.2;
+        }
+
+        .onboarding-subtitle {
+            font-size: 18px;
+            color: var(--series-text-secondary);
+            margin-bottom: 0;
+            font-weight: 400;
+        }
+
+        @media (max-width: 480px) {
+            .onboarding-title {
+                font-size: 32px;
+            }
+            .onboarding-subtitle {
+                font-size: 16px;
+            }
+            .onboarding-screen {
+                padding: 32px 20px;
+            }
+        }
+
+        .step-indicator {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            justify-content: center;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--series-border);
+            transition: all 0.3s;
+        }
+
+        .step-dot.active {
+            width: 32px;
+            background: var(--series-black);
+        }
+
+        .step-dot.complete {
+            background: var(--series-black);
+        }
+
+        /* Interest Chips - Series Style */
+        .chips-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ios-chip {
+            background: var(--series-white);
+            border: 1px solid var(--series-border);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 15px;
+            color: var(--series-text);
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            font-weight: 400;
+        }
+
+        .ios-chip:hover {
+            border-color: var(--series-black);
+        }
+
+        .ios-chip:active {
+            transform: scale(0.96);
+        }
+
+        .ios-chip.selected {
+            background: var(--series-black);
+            color: var(--series-white);
+            border-color: var(--series-black);
+        }
+
+        /* Events List - Series Style */
+        .events-section {
+            padding: 32px 24px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--series-text);
+            margin-bottom: 24px;
+            padding: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .event-item {
+            background: var(--series-white);
+            border-radius: 0;
+            border: 1px solid var(--series-border);
+            padding: 24px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: border-color 0.2s, transform 0.1s;
+        }
+
+        .event-item:hover {
+            border-color: var(--series-black);
+        }
+
+        .event-item:active {
+            transform: scale(0.99);
+        }
+
+        .event-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--series-text);
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .event-meta {
+            font-size: 15px;
+            color: var(--series-text-secondary);
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .event-description {
+            font-size: 15px;
+            color: var(--series-text-muted);
+            line-height: 1.5;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .event-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .event-tag {
+            background: var(--series-gray-light);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            color: var(--series-text);
+            border: 1px solid var(--series-border);
+        }
+
+        .urgency-badge {
+            display: inline-block;
+            background: var(--series-black);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        /* iOS Message Bubbles */
+        .message-bubble {
+            max-width: 75%;
+            padding: 10px 16px;
+            border-radius: 18px;
+            margin-bottom: 4px;
+            word-wrap: break-word;
+            font-size: 17px;
+            line-height: 1.4;
+        }
+
+        .message-bubble.sent {
+            background: var(--series-black);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-bubble.received {
+            background: var(--series-gray-light);
+            color: var(--series-text);
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* Chatbot */
+        .chatbot-fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            background: var(--series-black);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.2s;
+        }
+
+        .chatbot-fab:active {
+            transform: scale(0.9);
+        }
+
+        .chatbot-drawer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 600px;
+            background: var(--series-bg);
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            z-index: 2000;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .chatbot-drawer.open {
+            transform: translateY(0);
+        }
+
+        .chatbot-handle {
+            width: 36px;
+            height: 5px;
+            background: var(--series-border);
+            border-radius: 3px;
+            margin: 12px auto;
+        }
+
+        .chatbot-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--series-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-title {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--series-text-muted);
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chatbot-input-area {
+            padding: 8px 16px 16px;
+            border-top: 1px solid var(--series-border);
+            display: flex;
+            gap: 8px;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            background: var(--series-gray-light);
+            border: none;
+            border-radius: 20px;
+            padding: 10px 16px;
+            font-size: 17px;
+            font-family: inherit;
+            resize: none;
+            max-height: 100px;
+        }
+
+        .chatbot-input:focus {
+            outline: none;
+        }
+
+        .chatbot-send {
+            background: var(--series-black);
+            border: none;
+            border-radius: 20px;
+            width: 36px;
+            height: 36px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-end;
+        }
+
+        /* Modal - iOS Style */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .modal-backdrop.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .ios-modal {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--series-bg);
+            border-radius: 20px 20px 0 0;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 3001;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-backdrop.open .ios-modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--series-border);
+            text-align: center;
+            font-size: 17px;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--series-text-muted);
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 16px;
+        }
+
+        /* Star Rating - iOS Style */
+        .star-rating {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 24px 0;
+        }
+
+        .star {
+            font-size: 36px;
+            color: var(--series-gray);
+            cursor: pointer;
+            transition: transform 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .star:active {
+            transform: scale(0.9);
+        }
+
+        .star.active {
+            color: var(--series-black);
+        }
+
+        /* Toast - iOS Style */
+        .ios-toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            z-index: 4000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .ios-toast.show {
+            opacity: 1;
+        }
+
+        /* Utility */
+        /* Page Management */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .mb-16 { margin-bottom: 16px; }
+        .mt-16 { margin-top: 16px; }
+
+        /* People Cards */
+        .people-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            background: var(--series-white);
+        }
+
+        .person-card {
+            background: var(--series-white);
+            border: none;
+            border-bottom: 1px solid var(--series-border);
+            border-radius: 0;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .person-card:active {
+            background: var(--series-gray-light);
+        }
+
+        .person-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
+            background: var(--series-black);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .person-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .person-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--series-text);
+            line-height: 1.2;
+        }
+
+        .person-details {
+            font-size: 15px;
+            color: var(--series-text-secondary);
+            line-height: 1.4;
+        }
+
+        .person-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .person-tag {
+            background: var(--series-gray-light);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: var(--series-text);
+            border: none;
+            font-weight: 400;
+        }
+
+        .person-message-btn {
+            padding: 8px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
+            background: var(--series-white);
+            color: var(--series-text);
+            border: 1px solid var(--series-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .person-message-btn:hover {
+            background: var(--series-gray-light);
+        }
+
+        .person-message-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Verification Badge */
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--series-black);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Onboarding Page -->
+    <div id="page-onboarding" class="page hidden">
+        <div id="onboarding" class="onboarding-screen"></div>
+    </div>
+
+    <!-- Events List Page -->
+    <div id="page-events" class="page active">
+        <div class="nav-bar">
+            <div class="nav-title">Events</div>
+            <div style="display: flex; gap: 8px;">
+                <button class="nav-button" id="filterButton" style="font-size: 14px;">🔍 Filters</button>
+                <button class="nav-button" id="filterToggle">All</button>
+            </div>
+        </div>
+        
+        <!-- Filter Panel -->
+        <div id="filterPanel" class="filter-panel hidden">
+            <div class="filter-section">
+                <div class="filter-label">Sort by</div>
+                <select id="sortBy" class="filter-select">
+                    <option value="match">Match Score (High to Low)</option>
+                    <option value="date">Date (Soonest First)</option>
+                    <option value="relevance">Relevance</option>
+                </select>
+            </div>
+            <div class="filter-section">
+                <div class="filter-label">Event Type</div>
+                <div id="eventTypeFilters" class="filter-chips"></div>
+            </div>
+            <div class="filter-section">
+                <div class="filter-label">Tags</div>
+                <div id="tagFilters" class="filter-chips"></div>
+            </div>
+            <div class="filter-section">
+                <div class="filter-label">Match Score</div>
+                <input type="range" id="minMatchScore" min="0" max="100" value="0" class="filter-range">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--series-text-muted); margin-top: 4px;">
+                    <span>0%</span>
+                    <span id="minScoreDisplay">0%</span>
+                    <span>100%</span>
+                </div>
+            </div>
+            <div style="padding: 16px; display: flex; gap: 8px;">
+                <button class="ios-button" id="applyFilters">Apply Filters</button>
+                <button class="ios-button ios-button-secondary" id="clearFilters">Clear</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Recommended Section -->
+            <div class="events-section" id="recommendedSection">
+                <div class="section-title">Recommended for you</div>
+                <div id="recommendedEvents"></div>
+            </div>
+
+            <!-- All Events -->
+            <div class="events-section">
+                <div class="section-title">All Events</div>
+                <div id="allEvents"></div>
+            </div>
+
+            <!-- Past Events -->
+            <div class="events-section" id="pastEventsSection">
+                <div class="section-title">Past Events</div>
+                <div id="pastEvents"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Detail Page -->
+    <div id="page-event-detail" class="page hidden">
+        <div class="nav-bar has-back">
+            <button class="nav-back" onclick="window.router.back()">← Back</button>
+            <div class="nav-title" id="eventDetailTitle">Event</div>
+        </div>
+        <div class="container">
+            <div id="eventDetailContent"></div>
+            <div id="eventDetailPeople"></div>
+        </div>
+    </div>
+
+    <!-- People List Page -->
+    <div id="page-people" class="page hidden">
+        <div class="nav-bar has-back">
+            <button class="nav-back" onclick="window.router.back()">← Back</button>
+            <div class="nav-title" id="peopleListTitle">People Going</div>
+        </div>
+        <div class="container">
+            <div id="peopleListContent"></div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="page-profile" class="page hidden">
+        <div class="nav-bar has-back">
+            <button class="nav-back" onclick="window.router.back()">← Back</button>
+            <div class="nav-title">Profile</div>
+        </div>
+        <div class="container">
+            <div id="profilePageContent"></div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="page-about" class="page hidden">
+        <div class="nav-bar">
+            <div class="nav-title">About Series</div>
+        </div>
+        <div class="container" id="aboutPageContent" style="padding: 24px;">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Chatbot FAB -->
+    <button class="chatbot-fab" id="chatbotButton">💬</button>
+
+    <!-- Chatbot Drawer -->
+    <div class="chatbot-drawer" id="chatbotDrawer">
+        <div class="chatbot-handle"></div>
+        <div class="chatbot-header">
+            <div class="chatbot-title">Event Copilot</div>
+            <button class="chatbot-close" id="closeChatbot">✕</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages"></div>
+        <div class="chatbot-input-area">
+            <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Message">
+            <button class="chatbot-send" id="sendMessage">↑</button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-backdrop" id="messageModal">
+        <div class="ios-modal">
+            <div class="modal-header">
+                <span id="messageModalTitle">Message</span>
+                <button class="modal-close" id="closeMessageModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <textarea class="ios-input" id="messageText" rows="4" placeholder="Type your message..."></textarea>
+                <button class="ios-button" id="sendMessageBtn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="feedbackModal">
+        <div class="ios-modal">
+            <div class="modal-header">
+                <span id="feedbackModalTitle">Feedback</span>
+                <button class="modal-close" id="closeFeedbackModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="star-rating" id="starRating">
+                    <span class="star" data-rating="1">☆</span>
+                    <span class="star" data-rating="2">☆</span>
+                    <span class="star" data-rating="3">☆</span>
+                    <span class="star" data-rating="4">☆</span>
+                    <span class="star" data-rating="5">☆</span>
+                </div>
+                <div class="chips-row">
+                    <span class="ios-chip" data-outcome="met">Met someone</span>
+                    <span class="ios-chip" data-outcome="connection">Made connection</span>
+                    <span class="ios-chip" data-outcome="no-match">No match</span>
+                </div>
+                <textarea class="ios-input" id="feedbackNotes" placeholder="Additional notes..."></textarea>
+                <button class="ios-button" id="submitFeedbackBtn">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="ios-toast" id="toast"></div>
+
+    <script src="router.js"></script>
+    <script src="matching-animation.js"></script>
+    <script src="onboarding-complete.js"></script>
+    <script src="about-page.js"></script>
+    <script src="events-full.js"></script>
+    <script src="events-ios-adapter.js"></script>
+    <script>
+        // Initialize router after DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Register onboarding routes (all steps use same handler)
+            for (let i = 1; i <= 5; i++) {
+                window.router.register(`onboarding/${i}`, () => {
+                    if (!window.state?.isOnboardingCompleted()) {
+                        window.renderOnboarding?.();
+                    } else {
+                        window.router.goTo('events');
+                    }
+                });
+            }
+            
+            // Legacy onboarding route (redirects to step 1)
+            window.router.register('onboarding', () => {
+                if (!window.state?.isOnboardingCompleted()) {
+                    window.router.goTo('onboarding/1');
+                } else {
+                    window.router.goTo('events');
+                }
+            });
+
+            window.router.register('events', () => {
+                console.log('[ROUTER] Events route activated');
+                if (window.initApp) {
+                    window.initApp();
+                } else {
+                    console.error('[ROUTER] initApp not found!');
+                }
+            });
+            
+            window.router.register('home', () => {
+                console.log('[ROUTER] Home route activated');
+                if (window.initApp) {
+                    window.initApp();
+                }
+            });
+
+            window.router.register('event-detail', () => {
+                const hashParts = window.location.hash.split('?');
+                const params = new URLSearchParams(hashParts[1] || '');
+                const eventId = params.get('id');
+                if (eventId) {
+                    window.renderEventDetail?.(eventId);
+                }
+            });
+
+            window.router.register('people', () => {
+                const hashParts = window.location.hash.split('?');
+                const params = new URLSearchParams(hashParts[1] || '');
+                const eventId = params.get('eventId');
+                if (eventId) {
+                    window.renderPeoplePage?.(eventId);
+                }
+            });
+
+            window.router.register('profile', () => {
+                window.renderProfilePage?.();
+            });
+
+            window.router.register('about', () => {
+                if (window.renderAboutPage) {
+                    window.renderAboutPage();
+                } else {
+                    console.error('[ROUTER] renderAboutPage not found!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
